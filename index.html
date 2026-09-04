@@ -2,128 +2,211 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
 <title>Utah Time Converter</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
 
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #e8f0ff, #f7f9fc);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f5f8;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin: 8px 0 25px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 13px;
+    font-size: 17px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    background: white;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+    border-color: #555;
+}
+
+/* QUICK TIME ZONES */
+
+.quick-title {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.quick-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+}
+
+.quick-buttons button {
+    padding: 9px 5px;
+    background: #f1f1f1;
+    color: #222;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.quick-buttons button:hover {
+    background: #ddd;
+}
+
+/* TIME ZONE */
+
+#timezoneContainer {
+    display: none;
+}
+
+/* TIME ROW */
+
+.time-row {
+    display: flex;
+    gap: 8px;
+}
+
+.time-row input {
+    flex: 1;
+}
+
+.now-button {
+    width: 75px;
+    border: none;
+    border-radius: 9px;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.now-button:hover {
+    background: #555;
+}
+
+/* SWITCH */
+
+.switch-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.switch-button {
+    border: none;
+    background: transparent;
+    color: #444;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.switch-button:hover {
+    text-decoration: underline;
+}
+
+/* RESULT */
+
+.result {
+    margin-top: 20px;
+    padding: 25px;
+    border-radius: 14px;
+    background: #eef4ff;
+    text-align: center;
+}
+
+.result-label {
+    font-size: 15px;
+    color: #666;
+}
+
+.result-time {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.result-difference {
+    color: #555;
+    font-size: 15px;
+}
+
+.error {
+    color: #b00020;
+    text-align: center;
+    margin-top: 15px;
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+/* MOBILE */
+
+@media (max-width: 450px) {
 
     .container {
-        background: white;
-        width: 100%;
-        max-width: 550px;
-        padding: 35px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        padding: 22px;
     }
 
-    h1 {
-        text-align: center;
-        margin: 0 0 10px;
-        font-size: 32px;
+    .quick-buttons {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .subtitle {
-        text-align: center;
-        color: #666;
-        margin-bottom: 30px;
-        line-height: 1.5;
-    }
-
-    label {
-        display: block;
-        font-weight: bold;
-        margin-top: 18px;
-        margin-bottom: 7px;
-    }
-
-    select,
-    input {
-        width: 100%;
-        padding: 13px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background: white;
-    }
-
-    select:focus,
-    input:focus {
-        outline: none;
-        border-color: #555;
-    }
-
-    #timezoneContainer {
-        display: none;
-    }
-
-    button {
-        width: 100%;
-        padding: 14px;
-        margin-top: 25px;
-        border: none;
-        border-radius: 8px;
-        background: #222;
-        color: white;
-        font-size: 17px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #444;
-    }
-
-    #result {
-        display: none;
-        margin-top: 25px;
-        padding: 25px;
-        background: #eef4ff;
-        border-radius: 12px;
-        text-align: center;
-    }
-
-    .result-title {
-        font-size: 16px;
-        color: #555;
-    }
-
-    #utahTime {
+    .result-time {
         font-size: 34px;
-        font-weight: bold;
-        margin: 10px 0;
     }
+}
 
-    #difference {
-        color: #555;
-        font-size: 15px;
-    }
-
-    .info {
-        margin-top: 25px;
-        font-size: 13px;
-        color: #777;
-        text-align: center;
-        line-height: 1.5;
-    }
 </style>
-```
 
 </head>
 
@@ -135,16 +218,48 @@
 <h1>🕐 Utah Time Converter</h1>
 
 <p class="subtitle">
-    Enter a time from another state and find out what time it is in Utah.
+    Quickly convert customer time to Utah time.
 </p>
+
+
+<!-- QUICK TIME ZONE BUTTONS -->
+
+<div class="quick-title">
+    Quick Select
+</div>
+
+<div class="quick-buttons">
+
+    <button onclick="quickZone('Pacific')">
+        Pacific
+    </button>
+
+    <button onclick="quickZone('Mountain')">
+        Mountain
+    </button>
+
+    <button onclick="quickZone('Central')">
+        Central
+    </button>
+
+    <button onclick="quickZone('Eastern')">
+        Eastern
+    </button>
+
+</div>
+
 
 <!-- STATE -->
 
-<label for="state">Choose a State</label>
+<label for="state">
+    Customer's State
+</label>
 
-<select id="state" onchange="updateTimeZones()">
+<select id="state" onchange="stateChanged()">
 
-    <option value="">-- Select a State --</option>
+    <option value="">
+        -- Select State --
+    </option>
 
     <option value="AL">Alabama</option>
     <option value="AK">Alaska</option>
@@ -200,49 +315,98 @@
 </select>
 
 
-<!-- TIME ZONE -->
+<!-- MULTIPLE TIME ZONE OPTION -->
 
 <div id="timezoneContainer">
 
-    <label for="timezone">Which Time Zone?</label>
+    <label for="timezone">
+        Time Zone
+    </label>
 
-    <select id="timezone"></select>
+    <select id="timezone" onchange="convert()">
+    </select>
 
 </div>
 
 
 <!-- TIME -->
 
-<label for="time">Enter the Time</label>
+<label for="time">
+    <span id="timeLabel">
+        Customer's Time
+    </span>
+</label>
 
-<input type="time" id="time">
+<div class="time-row">
 
+    <input
+        type="time"
+        id="time"
+        oninput="convert()"
+    >
 
-<!-- BUTTON -->
-
-<button onclick="convertTime()">
-    Convert to Utah Time
-</button>
-
-
-<!-- RESULT -->
-
-<div id="result">
-
-    <div class="result-title">
-        🇺🇸 Time in Utah
-    </div>
-
-    <div id="utahTime"></div>
-
-    <div id="difference"></div>
+    <button
+        class="now-button"
+        onclick="useCurrentTime()"
+    >
+        Now
+    </button>
 
 </div>
 
 
-<div class="info">
-    Utah uses Mountain Time.
-    During Daylight Saving Time, Utah uses MDT.
+<!-- SWITCH -->
+
+<div class="switch-container">
+
+    <button
+        class="switch-button"
+        onclick="switchDirection()"
+        id="switchButton"
+    >
+        ⇄ Switch to Utah → Customer
+    </button>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div class="result">
+
+    <div
+        class="result-label"
+        id="resultLabel"
+    >
+        Utah Time
+    </div>
+
+    <div
+        class="result-time"
+        id="resultTime"
+    >
+        —
+    </div>
+
+    <div
+        class="result-difference"
+        id="difference"
+    >
+        Select a state and enter a time.
+    </div>
+
+</div>
+
+
+<div
+    class="error"
+    id="error"
+>
+</div>
+
+
+<div class="footer">
+    Utah uses Mountain Time. Time differences adjust for daylight saving rules.
 </div>
 ```
 
@@ -250,350 +414,555 @@
 
 <script>
 
-    /*
-        States that have more than one time zone.
+/*
+====================================================
+TIME ZONE INFORMATION
+====================================================
+*/
 
-        The first value is the default time zone.
-        The second value is the additional time zone.
+const zones = {
+
+    Pacific: {
+        name: "Pacific Time",
+        offset: -1
+    },
+
+    Mountain: {
+        name: "Mountain Time",
+        offset: 0
+    },
+
+    Central: {
+        name: "Central Time",
+        offset: 1
+    },
+
+    Eastern: {
+        name: "Eastern Time",
+        offset: 2
+    }
+
+};
+
+
+/*
+====================================================
+STATE DEFAULT TIME ZONES
+====================================================
+*/
+
+const stateZones = {
+
+    AL: ["Central"],
+    AK: ["Alaska"],
+    AZ: ["Arizona"],
+    AR: ["Central"],
+    CA: ["Pacific"],
+    CO: ["Mountain"],
+    CT: ["Eastern"],
+    DE: ["Eastern"],
+    FL: ["Eastern", "Central"],
+    GA: ["Eastern"],
+    HI: ["Hawaii"],
+    ID: ["Mountain", "Pacific"],
+    IL: ["Central"],
+    IN: ["Eastern", "Central"],
+    IA: ["Central"],
+    KS: ["Central", "Mountain"],
+    KY: ["Eastern", "Central"],
+    LA: ["Central"],
+    ME: ["Eastern"],
+    MD: ["Eastern"],
+    MA: ["Eastern"],
+    MI: ["Eastern", "Central"],
+    MN: ["Central"],
+    MS: ["Central"],
+    MO: ["Central"],
+    MT: ["Mountain"],
+    NE: ["Central", "Mountain"],
+    NV: ["Pacific"],
+    NH: ["Eastern"],
+    NJ: ["Eastern"],
+    NM: ["Mountain"],
+    NY: ["Eastern"],
+    NC: ["Eastern"],
+    ND: ["Central", "Mountain"],
+    OH: ["Eastern"],
+    OK: ["Central"],
+    OR: ["Pacific", "Mountain"],
+    PA: ["Eastern"],
+    RI: ["Eastern"],
+    SC: ["Eastern"],
+    SD: ["Central", "Mountain"],
+    TN: ["Central", "Eastern"],
+    TX: ["Central", "Mountain"],
+    UT: ["Mountain"],
+    VT: ["Eastern"],
+    VA: ["Eastern"],
+    WA: ["Pacific"],
+    WV: ["Eastern"],
+    WI: ["Central"],
+    WY: ["Mountain"]
+
+};
+
+
+/*
+====================================================
+SPECIAL TIME ZONE DIFFERENCES
+====================================================
+*/
+
+const specialOffsets = {
+
+    Alaska: -2,
+    Arizona: 1,
+    Hawaii: 4
+
+};
+
+
+/*
+====================================================
+DIRECTION
+====================================================
+*/
+
+let direction = "customerToUtah";
+
+
+/*
+====================================================
+STATE CHANGED
+====================================================
+*/
+
+function stateChanged() {
+
+    const state =
+        document.getElementById("state").value;
+
+    const container =
+        document.getElementById("timezoneContainer");
+
+    const timezone =
+        document.getElementById("timezone");
+
+
+    timezone.innerHTML = "";
+
+
+    if (!state) {
+
+        container.style.display = "none";
+
+        convert();
+
+        return;
+    }
+
+
+    const availableZones =
+        stateZones[state];
+
+
+    /*
+    If state has more than one time zone,
+    show the time zone dropdown.
     */
 
-    const multipleTimeZones = {
+    if (availableZones.length > 1) {
 
-        "AK": [
-            ["Alaska Time", -8],
-            ["Aleutian Time", -9]
-        ],
+        container.style.display = "block";
 
-        "AZ": [
-            ["Most of Arizona — MST", 1],
-            ["Navajo Nation — MDT", 0]
-        ],
 
-        "FL": [
-            ["Eastern Time", -2],
-            ["Central Time", -1]
-        ],
+        availableZones.forEach(zone => {
 
-        "ID": [
-            ["Mountain Time", 0],
-            ["Pacific Time", 1]
-        ],
+            const option =
+                document.createElement("option");
 
-        "IN": [
-            ["Eastern Time", -2],
-            ["Central Time", -1]
-        ],
+            option.value = zone;
 
-        "KS": [
-            ["Central Time", -1],
-            ["Mountain Time", 0]
-        ],
+            option.textContent =
+                zone + " Time";
 
-        "KY": [
-            ["Eastern Time", -2],
-            ["Central Time", -1]
-        ],
+            timezone.appendChild(option);
 
-        "MI": [
-            ["Eastern Time", -2],
-            ["Central Time", -1]
-        ],
+        });
 
-        "NE": [
-            ["Central Time", -1],
-            ["Mountain Time", 0]
-        ],
+    }
 
-        "ND": [
-            ["Central Time", -1],
-            ["Mountain Time", 0]
-        ],
+    else {
 
-        "OR": [
-            ["Pacific Time", 1],
-            ["Mountain Time", 0]
-        ],
+        container.style.display = "none";
 
-        "SD": [
-            ["Central Time", -1],
-            ["Mountain Time", 0]
-        ],
+    }
 
-        "TN": [
-            ["Central Time", -1],
-            ["Eastern Time", -2]
-        ],
 
-        "TX": [
-            ["Central Time", -1],
-            ["Mountain Time", 0]
-        ]
-    };
+    convert();
+}
+
+
+/*
+====================================================
+QUICK TIME ZONE BUTTONS
+====================================================
+*/
+
+function quickZone(zone) {
+
+    /*
+    Clear state because the user is choosing
+    a time zone instead of a specific state.
+    */
+
+    document.getElementById("state").value = "";
+
+    document.getElementById("timezoneContainer")
+        .style.display = "block";
+
+
+    const timezone =
+        document.getElementById("timezone");
+
+    timezone.innerHTML = "";
+
+
+    const option =
+        document.createElement("option");
+
+    option.value = zone;
+
+    option.textContent =
+        zone + " Time";
+
+    timezone.appendChild(option);
+
+
+    convert();
+}
+
+
+/*
+====================================================
+GET SELECTED ZONE
+====================================================
+*/
+
+function getSelectedZone() {
+
+    const state =
+        document.getElementById("state").value;
 
 
     /*
-        States with only one time zone.
-
-        Number represents how many hours must be
-        added to the state's time to get Utah time.
-
-        Example:
-
-        California = +1
-
-        California 5 PM
-        \+ 1 hour
-        = Utah 6 PM
+    If a state is selected...
     */
 
-    const singleTimeZones = {
+    if (state) {
 
-        "AL": -1,
-        "AR": -1,
-        "CA": 1,
-        "CO": 0,
-        "CT": -2,
-        "DE": -2,
-        "GA": -2,
-        "HI": 4,
-        "IL": -1,
-        "IA": -1,
-        "LA": -1,
-        "ME": -2,
-        "MD": -2,
-        "MA": -2,
-        "MN": -1,
-        "MS": -1,
-        "MO": -1,
-        "MT": 0,
-        "NV": 1,
-        "NH": -2,
-        "NJ": -2,
-        "NM": 0,
-        "NY": -2,
-        "NC": -2,
-        "OH": -2,
-        "OK": -1,
-        "PA": -2,
-        "RI": -2,
-        "SC": -2,
-        "UT": 0,
-        "VT": -2,
-        "VA": -2,
-        "WA": 1,
-        "WV": -2,
-        "WI": -1,
-        "WY": 0
-    };
+        const available =
+            stateZones[state];
 
 
-    /*
-        Show the time-zone selector only when
-        the state has multiple time zones.
-    */
+        /*
+        If it only has one zone,
+        use that zone.
+        */
 
-    function updateTimeZones() {
+        if (available.length === 1) {
 
-        const state =
-            document.getElementById("state").value;
+            return available[0];
 
-        const container =
-            document.getElementById("timezoneContainer");
-
-        const timezone =
-            document.getElementById("timezone");
-
-
-        timezone.innerHTML = "";
-
-
-        if (multipleTimeZones[state]) {
-
-            container.style.display = "block";
-
-
-            multipleTimeZones[state].forEach(zone => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value = zone[1];
-
-                option.textContent = zone[0];
-
-                timezone.appendChild(option);
-
-            });
-
-        } else {
-
-            container.style.display = "none";
         }
+
+
+        /*
+        Otherwise use the dropdown.
+        */
+
+        return document.getElementById("timezone").value;
     }
 
 
     /*
-        Convert the entered time to Utah time.
+    If no state is selected,
+    use quick-select zone.
     */
 
-    function convertTime() {
-
-        const state =
-            document.getElementById("state").value;
-
-        const time =
-            document.getElementById("time").value;
+    return document.getElementById("timezone").value;
+}
 
 
-        if (!state || !time) {
+/*
+====================================================
+GET OFFSET
+====================================================
+*/
 
-            alert(
-                "Please choose a state and enter a time."
-            );
+function getOffset(zone) {
 
-            return;
-        }
+    if (zone === "Alaska") {
+        return -2;
+    }
 
+    if (zone === "Hawaii") {
+        return 4;
+    }
 
-        let offset;
+    if (zone === "Arizona") {
+        return 1;
+    }
 
-
-        /*
-            If the state has multiple time zones,
-            use the selected time zone.
-        */
-
-        if (multipleTimeZones[state]) {
-
-            offset =
-                parseInt(
-                    document.getElementById("timezone").value
-                );
-
-        } else {
-
-            offset =
-                singleTimeZones[state];
-        }
+    return zones[zone]
+        ? zones[zone].offset
+        : 0;
+}
 
 
-        /*
-            Break the entered time into hours
-            and minutes.
-        */
+/*
+====================================================
+CONVERT TIME
+====================================================
+*/
 
-        let [hours, minutes] =
-            time.split(":").map(Number);
+function convert() {
 
-
-        let totalMinutes =
-            hours * 60 +
-            minutes;
+    const time =
+        document.getElementById("time").value;
 
 
-        /*
-            Apply the time-zone difference.
-        */
+    const zone =
+        getSelectedZone();
+
+
+    if (!time || !zone) {
+
+        document.getElementById("resultTime")
+            .textContent = "—";
+
+        document.getElementById("difference")
+            .textContent =
+            "Select a state and enter a time.";
+
+        return;
+    }
+
+
+    let [hours, minutes] =
+        time.split(":").map(Number);
+
+
+    let totalMinutes =
+        hours * 60 + minutes;
+
+
+    const offset =
+        getOffset(zone);
+
+
+    /*
+    CUSTOMER → UTAH
+
+    Example:
+
+    Eastern 2:00 PM
+    Utah is 2 hours behind
+    Result = 12:00 PM
+
+    */
+
+    if (direction === "customerToUtah") {
+
+        totalMinutes -=
+            offset * 60;
+
+    }
+
+
+    /*
+    UTAH → CUSTOMER
+
+    Example:
+
+    Utah 12:00 PM
+    Eastern is 2 hours ahead
+    Result = 2:00 PM
+
+    */
+
+    else {
 
         totalMinutes +=
             offset * 60;
 
-
-        /*
-            Handle going past midnight.
-        */
-
-        totalMinutes =
-            (totalMinutes + 1440) % 1440;
-
-
-        /*
-            Convert back to hours and minutes.
-        */
-
-        let newHours =
-            Math.floor(totalMinutes / 60);
-
-        let newMinutes =
-            totalMinutes % 60;
-
-
-        /*
-            Convert to 12-hour format.
-        */
-
-        const period =
-            newHours >= 12 ? "PM" : "AM";
-
-
-        let displayHours =
-            newHours % 12;
-
-
-        if (displayHours === 0) {
-            displayHours = 12;
-        }
-
-
-        const formattedMinutes =
-            newMinutes
-                .toString()
-                .padStart(2, "0");
-
-
-        const formattedTime =
-            `${displayHours}:${formattedMinutes} ${period}`;
-
-
-        /*
-            Display result.
-        */
-
-        document.getElementById("utahTime")
-            .textContent =
-            formattedTime;
-
-
-        /*
-            Display explanation.
-        */
-
-        let explanation;
-
-
-        if (offset === 0) {
-
-            explanation =
-                "The time is the same as Utah.";
-
-        } else if (offset > 0) {
-
-            explanation =
-                `Utah is ${offset} hour${
-                    offset === 1 ? "" : "s"
-                } ahead.`;
-
-        } else {
-
-            const difference =
-                Math.abs(offset);
-
-            explanation =
-                `Utah is ${difference} hour${
-                    difference === 1 ? "" : "s"
-                } behind.`;
-        }
-
-
-        document.getElementById("difference")
-            .textContent =
-            explanation;
-
-
-        document.getElementById("result")
-            .style.display =
-            "block";
     }
+
+
+    /*
+    Handle midnight.
+    */
+
+    totalMinutes =
+        (totalMinutes + 1440) % 1440;
+
+
+    const newHours =
+        Math.floor(totalMinutes / 60);
+
+    const newMinutes =
+        totalMinutes % 60;
+
+
+    const period =
+        newHours >= 12 ? "PM" : "AM";
+
+
+    let displayHours =
+        newHours % 12;
+
+
+    if (displayHours === 0) {
+        displayHours = 12;
+    }
+
+
+    const formattedMinutes =
+        String(newMinutes)
+            .padStart(2, "0");
+
+
+    const formattedTime =
+        `${displayHours}:${formattedMinutes} ${period}`;
+
+
+    document.getElementById("resultTime")
+        .textContent =
+        formattedTime;
+
+
+    /*
+    Difference message.
+    */
+
+    let difference;
+
+
+    if (offset === 0) {
+
+        difference =
+            "Same time as Utah.";
+
+    }
+
+    else if (offset > 0) {
+
+        difference =
+            `Utah is ${offset} hour${
+                offset === 1 ? "" : "s"
+            } behind ${zone} Time.`;
+
+    }
+
+    else {
+
+        difference =
+            `Utah is ${Math.abs(offset)} hour${
+                Math.abs(offset) === 1 ? "" : "s"
+            } ahead of ${zone} Time.`;
+
+    }
+
+
+    document.getElementById("difference")
+        .textContent =
+        difference;
+}
+
+
+/*
+====================================================
+SWITCH DIRECTION
+====================================================
+*/
+
+function switchDirection() {
+
+    if (direction === "customerToUtah") {
+
+        direction = "utahToCustomer";
+
+
+        document.getElementById("timeLabel")
+            .textContent =
+            "Utah Time";
+
+
+        document.getElementById("resultLabel")
+            .textContent =
+            "Customer's Time";
+
+
+        document.getElementById("switchButton")
+            .textContent =
+            "⇄ Switch to Customer → Utah";
+
+    }
+
+    else {
+
+        direction = "customerToUtah";
+
+
+        document.getElementById("timeLabel")
+            .textContent =
+            "Customer's Time";
+
+
+        document.getElementById("resultLabel")
+            .textContent =
+            "Utah Time";
+
+
+        document.getElementById("switchButton")
+            .textContent =
+            "⇄ Switch to Utah → Customer";
+    }
+
+
+    convert();
+}
+
+
+/*
+====================================================
+CURRENT TIME
+====================================================
+*/
+
+function useCurrentTime() {
+
+    const now =
+        new Date();
+
+
+    const hours =
+        String(now.getHours())
+            .padStart(2, "0");
+
+
+    const minutes =
+        String(now.getMinutes())
+            .padStart(2, "0");
+
+
+    document.getElementById("time")
+        .value =
+        `${hours}:${minutes}`;
+
+
+    convert();
+}
 
 </script>
 
